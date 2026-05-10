@@ -23,4 +23,4 @@ jobs:
             key: ${{ secrets.EC2_SSH_KEY }}
             
             script: |
-                bash /home/ubuntu/pokimon-card-project/scripts/deploy.sh
+                bash /home/ubuntu/scripts/deploy.sh
