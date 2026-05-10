@@ -1,1 +1,26 @@
+name: Deploy React App to EC2
 
+on:
+    push:
+        branches:
+          - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: docker build -t pokimon-app .
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with: 
+            host: ${{ vars.EC2_HOST }}
+            username: ${{ vars.EC2_USERNAME }}
+            key: ${{ secrets.EC2_SSH_KEY }}
+            
+            script: |
+                bash /home/ubuntu/pokimon-card-project/scripts/deploy.sh
